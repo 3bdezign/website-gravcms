@@ -1,0 +1,24 @@
+{% for page in pages.children.visible %}
+    {% set current_page = (page.active or page.activeChild)
+      ? 'is-active'
+      : '' %}
+<div class="nav">
+      <a class="navbar-item {{ current_page }}" href="{{ page.url }}">
+        {% if page.header.icon %}
+          <i class="fa fa-{{ page.header.icon }}"></i>
+        {% endif %}
+        {{ page.menu }}
+      </a>
+
+  {% endfor %}
+
+  {% for mitem in site.menu %}
+
+      <a class="navbar-item {{ current_page }}" href="{{ mitem.url }}">
+        {% if mitem.icon %}
+          <i data-feather="{{ mitem.icon }}"></i>
+        {% endif %}
+        {{ mitem.text }}
+      </a>
+</div>
+  {% endfor %}

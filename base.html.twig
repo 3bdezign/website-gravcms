@@ -1,0 +1,87 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+<!DOCTYPE html>
+<html lang="{{ (grav.language.getActive ?: theme_config.default_lang)|e }}">
+<head>
+{% block head %}
+    <meta charset="utf-8" />
+    <title>{% if header.title %}{{ header.title|e }} | {% endif %}{{ site.title|e }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'partials/metadata.html.twig' %}
+
+    <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png')|e }}" />
+    <link rel="canonical" href="{{ page.url(true, true)|e }}" />
+{% endblock head %}
+
+{% block stylesheets %}
+    {% do assets.addCss('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css', 99) %}
+    {% do assets.addCss('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 98) %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {% do assets.addJs('jquery', 100) %}
+{% endblock %}
+
+{% block assets deferred %}
+    {{ assets.css()|raw }}
+    {{ assets.js()|raw }}
+{% endblock %}
+
+</head>
+<body id="top" class="{{ page.header.body_classes|e }}">
+
+{% block header %}
+    <div class="header">
+        <div class="wrapper padding">
+            <a class="logo left" href="{{ (base_url == '' ? '/' : base_url)|e }}">
+                <i class="fa fa-rebel"></i>
+                {{ config.site.title|e }}
+            </a>
+         
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <section id="body">
+        <div class="wrapper padding">
+        {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+   <footer class="footer">
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column is-2">
+<a class="button is-link" href="http://topfollow.us/contact">Contact us
+    </a><hr>
+      <a class="button is-link" href="http://topfollow.us/legal"> Legal
+    </a></div>
+      <div class="column is-auto">
+    <div class="content has-text-centered">
+              <p>
+                Website by <a href="">BB</a> The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>
+              </p>
+              <div class="tag is-warning"><b> <i>We are in <b>NO</b> way affiliated with any groups or platforms.<br> - ALL RIGHTS RESERVED -
+                </i></b></div>
+            </div>
+  </div>
+    <div class="column is-auto">
+<p class="content is-small">We accept all major forms of payment, including debit or credit, and use PayPal with venmo as our direct payment gateway. You do NOT need to have a PayPal account to make a payment<br><a href="http://topfollow/instagram-bitcoin-checkout"><img src="https://i.ibb.co/Hz4rLcT/image157.png" alt="image157" border="0"></a><img src="https://i.ibb.co/JzwcCJb/imag11e29.png" alt="imag11e29" border="0"></p>
+    </div>
+</div>
+          </footer>
+
+{% endblock %}
+
+{% block bottom %}
+    {{ assets.js('bottom')|raw }}
+{% endblock %}
+
+</body>
